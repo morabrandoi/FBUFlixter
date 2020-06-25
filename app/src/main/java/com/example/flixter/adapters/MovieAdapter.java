@@ -1,6 +1,7 @@
 package com.example.flixter.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.Image;
 import android.util.Log;
@@ -15,8 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.flixter.MainActivity;
+import com.example.flixter.MovieDetailsActivity;
 import com.example.flixter.R;
 import com.example.flixter.models.Movie;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -55,7 +59,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         return movies.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView tvTitle;
         TextView tvOverview;
@@ -67,6 +71,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
+            itemView.setOnClickListener(this);
 
         }
 
@@ -84,6 +89,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             // If phone is in landscape use banner
             Glide.with(context).load(imageURL).into(ivPoster);
 
+        }
+
+        @Override
+        public void onClick(View view) {
+            // Get the position & ensure it’s valid
+            int position = getAdapterPosition();
+            // Get the Movie at that position in the list
+            Movie movie = movies.get(position);
+            // Create an Intent to display MovieDetailsActivity
+            Intent intent = new Intent(context, MovieDetailsActivity.class);
+            // Pass the movie as an extra serialized via Parcels.wrap()
+            intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
+            // Show the activity
+            context.startActivity(intent);
         }
     }
 
