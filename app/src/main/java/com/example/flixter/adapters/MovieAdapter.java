@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+
+import com.bumptech.glide.request.target.Target;
 import com.example.flixter.MainActivity;
 import com.example.flixter.MovieDetailsActivity;
 import com.example.flixter.R;
@@ -23,6 +25,8 @@ import com.example.flixter.models.Movie;
 import org.parceler.Parcels;
 
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
@@ -84,10 +88,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                 imageURL = movie.getBackdropPath();
             }
             else{
+                // If phone is in landscape use banner
                 imageURL = movie.getPosterPath();
             }
-            // If phone is in landscape use banner
-            Glide.with(context).load(imageURL).into(ivPoster);
+            int radius = 30;
+            int margin = 5;
+
+            Glide.with(context).load(imageURL).transform(new RoundedCornersTransformation(radius, margin)).override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).into(ivPoster);
 
         }
 
