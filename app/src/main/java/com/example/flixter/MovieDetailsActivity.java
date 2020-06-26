@@ -6,11 +6,13 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.flixter.databinding.ActivityMovieDetailsBinding;
 import com.example.flixter.models.Movie;
 
 import org.parceler.Parcels;
@@ -32,24 +34,24 @@ public class MovieDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_details);
+        // setContentView(R.layout.activity_movie_details);
 
-        // Pulling in views in XML file
-        tvTitle = findViewById(R.id.tvTitle);
-        tvOverview = findViewById(R.id.tvOverview);
-        rbVoteAverage = findViewById(R.id.rbVoteAverage);
-        ivPoster = findViewById(R.id.ivPoster);
+        ActivityMovieDetailsBinding binding = ActivityMovieDetailsBinding.inflate(getLayoutInflater());
+        // layout of activity is stored in a special property called root
+        View view = binding.getRoot();
+        setContentView(view);
 
         // pulling movie object of view
         movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
 
-    // FILLING VIEW OBJECTS WITH DATA
-        tvTitle.setText(movie.getTitle());
-        tvOverview.setText(movie.getOverview());
+        // FILLING VIEW OBJECTS WITH DATA
+        binding.tvTitle.setText(movie.getTitle());
+
+        binding.tvOverview.setText(movie.getOverview());
 
         // Filling ratings bar
         float voteAverage = movie.getVoteAverage().floatValue();
-        rbVoteAverage.setRating(voteAverage / 2.0f);
+        binding.rbVoteAverage.setRating(voteAverage / 2.0f);
 
         // Filling imageView
         int radius = 30;
@@ -64,7 +66,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             imageURL = movie.getPosterPath();
         }
 
-        Glide.with(getApplicationContext()).load(imageURL).transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
+        Glide.with(getApplicationContext()).load(imageURL).transform(new RoundedCornersTransformation(radius, margin)).into(binding.ivPoster);
 
     }
 }
