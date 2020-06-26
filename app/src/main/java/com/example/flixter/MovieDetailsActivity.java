@@ -21,32 +21,22 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
-//    Set the title and overview from the movie
-//    Set the RatingBar value by diving Movie.getVoteAverage by 2.0
-
-    TextView tvTitle;
-    TextView tvOverview;
-    RatingBar rbVoteAverage;
-    ImageView ivPoster;
-
     Movie movie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // setContentView(R.layout.activity_movie_details);
 
+        // Using ViewBinding to facillitate getting activity views
         ActivityMovieDetailsBinding binding = ActivityMovieDetailsBinding.inflate(getLayoutInflater());
-        // layout of activity is stored in a special property called root
         View view = binding.getRoot();
         setContentView(view);
 
-        // pulling movie object of view
+        // pulling movie object out of parcel
         movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
 
-        // FILLING VIEW OBJECTS WITH DATA
+    // Filling View Objects with data
         binding.tvTitle.setText(movie.getTitle());
-
         binding.tvOverview.setText(movie.getOverview());
 
         // Filling ratings bar
@@ -56,16 +46,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         // Filling imageView
         int radius = 30;
         int margin = 10;
-
-        String imageURL;
-        // If phone is in portrait use portrait otherwise use banner
-        if ((getApplicationContext()).getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-            imageURL = movie.getBackdropPath();
-        }
-        else{
-            imageURL = movie.getPosterPath();
-        }
-
+        String imageURL = movie.getBackdropPath();
         Glide.with(getApplicationContext()).load(imageURL).transform(new RoundedCornersTransformation(radius, margin)).into(binding.ivPoster);
 
     }

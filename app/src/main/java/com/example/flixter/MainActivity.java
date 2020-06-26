@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,10 +26,13 @@ import java.util.List;
 import okhttp3.Headers;
 
 public class MainActivity extends AppCompatActivity {
+// STATIC
+    // public final static String API_KEY = getString(R.string.movie_api_key);
     public static final String API_KEY = "610823cd7256a3bec2e05f09f2c8ad28";
-    public static final String NOW_PLAYING_URL= "https://api.themoviedb.org/3/movie/now_playing?api_key=610823cd7256a3bec2e05f09f2c8ad28";
+    public static final String NOW_PLAYING_URL= "https://api.themoviedb.org/3/movie/now_playing?api_key=" + API_KEY;
     public static final String TAG = "MainActivity";
 
+// Non-Static
     List<Movie> movies;
 
     @Override
@@ -39,17 +44,16 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        // Initializing reference in movies. Will be passed to adapter
         movies = new ArrayList<>();
 
-        // Create adapter
         final MovieAdapter movieAdapter = new MovieAdapter(this, movies);
 
-        // Set adapter on the recyclerView
+        // Giving rvMovies necessary adapter and layout manager
         binding.rvMovies.setAdapter(movieAdapter);
-
-        // Set a layout Manager on the recycler view
         binding.rvMovies.setLayoutManager(new LinearLayoutManager(this));
 
+        // Making Get Request and parsing it into movies variable.
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(NOW_PLAYING_URL, new JsonHttpResponseHandler() {
             @Override
