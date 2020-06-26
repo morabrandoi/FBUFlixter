@@ -42,7 +42,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.i(MainActivity.TAG, "onCreateViewHolder executes");
         View movieView = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false);
         return new ViewHolder(movieView);
     }
@@ -50,11 +49,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     // Involves populating data into the item through the viewholder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        // Get movie at position
+        // Bind movie data into view holder
         Movie movie = movies.get(position);
-        // Bind movie data into viewholder
         holder.bind(movie);
-        
     }
 
     // Returns total count of items in the list
@@ -76,20 +73,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
             itemView.setOnClickListener(this);
-
         }
 
         public void bind(Movie movie) {
-            // Filling text View for Title
+            // Filling Views
+
+            // Title Text
             tvTitle.setText(movie.getTitle());
 
-            // Filling Text View for Overview and truncating response
+            // Overview Text
             String overview = movie.getOverview();
             String truncated = overview.length() < 300 ? overview: overview.substring(0,300) + "...";
-
             tvOverview.setText(truncated);
-//            tvOverview.setText(movie.getOverview());
 
+            // Image View
             String imageURL;
             // if phone is in portrait mode use poster
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
@@ -101,17 +98,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             }
             int radius = 30;
             int margin = 5;
-
             Glide.with(context).load(imageURL).transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
 
         }
 
         @Override
         public void onClick(View view) {
-            // Get the position & ensure it’s valid
-            int position = getAdapterPosition();
             // Get the Movie at that position in the list
+            int position = getAdapterPosition();
             Movie movie = movies.get(position);
+
             // Create an Intent to display MovieDetailsActivity
             Intent intent = new Intent(context, MovieDetailsActivity.class);
             // Pass the movie as an extra serialized via Parcels.wrap()

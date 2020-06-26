@@ -24,14 +24,12 @@ public class Movie {
 
 // Non-static
     }
-
     String backdropPath;
     String posterPath;
     String title;
     String overview;
     Double voteAverage;
     Integer id;
-
 
     public Movie() {}
 

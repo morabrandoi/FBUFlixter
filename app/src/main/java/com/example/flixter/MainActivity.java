@@ -27,9 +27,7 @@ import okhttp3.Headers;
 
 public class MainActivity extends AppCompatActivity {
 // STATIC
-    // public final static String API_KEY = getString(R.string.movie_api_key);
-    public static final String API_KEY = "610823cd7256a3bec2e05f09f2c8ad28";
-    public static final String NOW_PLAYING_URL= "https://api.themoviedb.org/3/movie/now_playing?api_key=" + API_KEY;
+    public static final String NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=";
     public static final String TAG = "MainActivity";
 
 // Non-Static
@@ -55,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Making Get Request and parsing it into movies variable.
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get(NOW_PLAYING_URL, new JsonHttpResponseHandler() {
+        client.get(NOW_PLAYING_URL + getString(R.string.movie_api_key), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 Log.d(TAG, "successful API GET");
