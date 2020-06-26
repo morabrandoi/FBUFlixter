@@ -13,7 +13,9 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MovieDetailsActivity"
-            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar" />
+            android:screenOrientation="sensor"
+        />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
