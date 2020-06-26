@@ -87,17 +87,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
             // Image View
             String imageURL;
+            int backupImage;
             // if phone is in portrait mode use poster
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
                 imageURL = movie.getBackdropPath();
+                backupImage = R.drawable.flicks_backdrop_placeholder;
             }
             else{
                 // If phone is in landscape use banner
                 imageURL = movie.getPosterPath();
+                backupImage = R.drawable.flicks_movie_placeholder;
             }
             int radius = 30;
             int margin = 5;
-            Glide.with(context).load(imageURL).transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
+            Glide.with(context).load(imageURL).placeholder(backupImage).transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
         }
 
         @Override

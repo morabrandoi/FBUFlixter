@@ -83,7 +83,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
         int radius = 30;
         int margin = 10;
         String imageURL = movie.getBackdropPath();
-        Glide.with(getApplicationContext()).load(imageURL).transform(new RoundedCornersTransformation(radius, margin)).into(binding.ivPoster);
+        int backupImage = R.drawable.flicks_backdrop_placeholder;
+        Glide.with(getApplicationContext()).load(imageURL).placeholder(backupImage).transform(new RoundedCornersTransformation(radius, margin)).into(binding.ivPoster);
 
         // Creating onClick Listener on Image
         binding.ivPoster.setOnClickListener(new View.OnClickListener() {
