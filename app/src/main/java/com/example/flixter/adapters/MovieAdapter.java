@@ -80,8 +80,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         }
 
         public void bind(Movie movie) {
+            // Filling text View for Title
             tvTitle.setText(movie.getTitle());
-            tvOverview.setText(movie.getOverview());
+
+            // Filling Text View for Overview and truncating response
+            String overview = movie.getOverview();
+            String truncated = overview.length() < 300 ? overview: overview.substring(0,300) + "...";
+
+            tvOverview.setText(truncated);
+//            tvOverview.setText(movie.getOverview());
 
             String imageURL;
             // if phone is in portrait mode use poster

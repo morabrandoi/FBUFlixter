@@ -27,7 +27,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
     RatingBar rbVoteAverage;
     ImageView ivPoster;
 
-
     Movie movie;
 
     @Override
