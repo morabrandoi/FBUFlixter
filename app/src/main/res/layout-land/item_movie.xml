@@ -26,6 +26,8 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:layout_toEndOf="@+id/ivPoster"
+        android:fontFamily="sans-serif-black"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
         tools:text="Fast and Faster and Angry" />
 
@@ -39,5 +41,6 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:layout_toEndOf="@+id/ivPoster"
+        android:textColor="#FFFFFF"
         tools:text="Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum" />
 </RelativeLayout>
