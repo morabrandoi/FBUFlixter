@@ -24,7 +24,6 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
 
         video_key = (String) getIntent().getStringExtra(MovieDetailsActivity.class.getSimpleName());
 
-
         // resolve the player view from the layout
         YouTubePlayerView playerView = (YouTubePlayerView) findViewById(R.id.player);
 
@@ -40,7 +39,6 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
             @Override
             public void onInitializationFailure(YouTubePlayer.Provider provider,
                                                 YouTubeInitializationResult youTubeInitializationResult) {
-                // log the error
                 Log.e("MovieTrailerActivity", "Error initializing YouTube player");
             }
         });

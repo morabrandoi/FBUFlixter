@@ -46,7 +46,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         return new ViewHolder(movieView);
     }
 
-    // Involves populating data into the item through the viewholder
+    // Involves populating data into the item through the view holder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Bind movie data into view holder
@@ -61,7 +61,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-
         TextView tvTitle;
         TextView tvOverview;
         ImageView ivPoster;
@@ -99,7 +98,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             int radius = 30;
             int margin = 5;
             Glide.with(context).load(imageURL).transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
-
         }
 
         @Override

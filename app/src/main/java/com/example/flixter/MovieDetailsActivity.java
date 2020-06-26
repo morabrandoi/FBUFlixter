@@ -30,7 +30,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     Movie movie;
     String trailer_key;
-    Boolean have_trailer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +53,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     JSONObject results = jsonObject.getJSONArray("results").getJSONObject(0);
                     // Do stuff with results
                     trailer_key = results.getString("key");
+                    Log.i("XYZ", "TRAILER KEY: " + trailer_key );
                 } catch (JSONException e) {
                     Log.e("XYZ", "Hit Json Exception", e);
                 }
@@ -89,14 +89,14 @@ public class MovieDetailsActivity extends AppCompatActivity {
         binding.ivPoster.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("XYZ"," TESTING IF I GET HEREER");
+
                 // Create an Intent to display MovieDetailsActivity
                 Context context = getApplicationContext();
                 Intent intent = new Intent(MovieDetailsActivity.this, MovieTrailerActivity.class);
                 // Pass the movie as an extra serialized via Parcels.wrap()
                 intent.putExtra(MovieDetailsActivity.class.getSimpleName(), trailer_key);
                 // Show the activity
-                startActivity(intent);
+                MovieDetailsActivity.this.startActivity(intent);
             }
         });
 
